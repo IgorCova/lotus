@@ -1,0 +1,9 @@
+@LotusWebApp_HostAddress = http://localhost:8000
+
+GET {{LotusWebApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+GET {{LotusWebApp_HostAddress}}/health/
+Accept: application/json
+
+###

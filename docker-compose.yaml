@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  lotus:
+    image: emptyparam/lotus:latest
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8000
+
+volumes:
+  data:

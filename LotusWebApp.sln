@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusWebApp.Service", "LotusWebApp.Service\LotusWebApp.Service.csproj", "{0068E82F-BCDF-487B-BC0F-891607897D5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{6295546E-2F3C-444E-950E-8FAF9C3A1B54}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		docker-compose.yaml = docker-compose.yaml
+		.dockerignore = .dockerignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{53F8699F-EFB8-41C3-9054-292AEEC8F15B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0068E82F-BCDF-487B-BC0F-891607897D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0068E82F-BCDF-487B-BC0F-891607897D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0068E82F-BCDF-487B-BC0F-891607897D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0068E82F-BCDF-487B-BC0F-891607897D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0068E82F-BCDF-487B-BC0F-891607897D5F} = {4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}
+	EndGlobalSection
+EndGlobal
