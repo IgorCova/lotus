@@ -16,6 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{53F8699F-E
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0584B2DF-3523-435D-A002-B6D2C77BFFEA}"
+ProjectSection(SolutionItems) = preProject
+		docker-hub.yml = .github\workflows\docker-hub.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5776CD2B-0896-4715-B058-0CD3954A3709}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +36,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0068E82F-BCDF-487B-BC0F-891607897D5F} = {4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}
+		{84F31160-2812-4A50-91BF-9FEF0AD5C65C} = {366DC559-19C2-4200-B9C5-7C261CF40FFA}
+		{0584B2DF-3523-435D-A002-B6D2C77BFFEA} = {5776CD2B-0896-4715-B058-0CD3954A3709}
 	EndGlobalSection
 EndGlobal
