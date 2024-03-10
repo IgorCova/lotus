@@ -5,10 +5,14 @@ metadata:
   labels:
     app: lotus-deploy
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: lotus-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -17,6 +21,7 @@ spec:
       containers:
         - name: lotus-app
           image: emptyparam/lotus:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           livenessProbe:
