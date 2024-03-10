@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lotus-deployment
+  labels:
+    app: lotus-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lotus-app
+  template:
+    metadata:
+      labels:
+        app: lotus-app
+    spec:
+      containers:
+        - name: lotus-app
+          image: emptyparam/lotus:latest
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5

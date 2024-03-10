@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lotus-ingress
+  labels:
+    app: lotus-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /health
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+                name: lotus-service
+                port:
+                  number: 80
+          - path: /otusapp/([^/]+)/health
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lotus-service
+                port:
+                  number: 80
