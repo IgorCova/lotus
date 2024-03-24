@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: "lotus"
+      POSTGRES_USER: "lotus"
+      POSTGRES_PASSWORD: "lotus"
+    ports:
+      - 7432:5432
