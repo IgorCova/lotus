@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lotus-config
+data:
+  APP_NAME: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: lotus-secret
+type: Opaque
+data:
+  DATABASE_URI: {{ printf "User ID=lotus;Password=lotus;Server=lotus-postgresql;Port=5432;Database=lotus;Pooling=true;Maximum Pool Size=100;" | b64enc | quote }}
