@@ -57,8 +57,6 @@ ingress:
       paths:
         - path: /health
           pathType: Prefix
-        - path: /User
-          pathType: Prefix
         - path: /user
           pathType: Prefix
         - path: /swagger
