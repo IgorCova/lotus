@@ -83,9 +83,5 @@ app.Use(async (context, next) =>
 
 app.MapGet("/", () => "Hello OpenTelemetry! ticks:"
                       + DateTime.Now.Ticks.ToString()[^3..]);
-app.MapPost("/user", (UserDto model, ContosoMetrics metrics) =>
-{
-    metrics.UserCreated(model.Name);
-});
 
 app.Run();

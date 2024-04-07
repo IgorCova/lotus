@@ -57,9 +57,13 @@ ingress:
       paths:
         - path: /health
           pathType: Prefix
+        - path: /User
+          pathType: Prefix
         - path: /user
           pathType: Prefix
         - path: /swagger
+          pathType: Prefix
+        - path: /metrics
           pathType: Prefix
   tls: []
 

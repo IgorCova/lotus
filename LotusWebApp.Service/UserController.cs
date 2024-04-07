@@ -5,7 +5,7 @@ namespace LotusWebApp;
 
 [Route("[controller]")]
 [ApiController]
-public class UserController(IDataProviderService dataProviderService) : ControllerBase
+public class UserController(IDataProviderService dataProviderService, ContosoMetrics metrics) : ControllerBase
 {
     [HttpGet("all")]
     public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
@@ -24,6 +24,7 @@ public class UserController(IDataProviderService dataProviderService) : Controll
     public async Task<IActionResult> CreateUser([FromBody] UserDto user, CancellationToken cancellationToken)
     {
         var result = await dataProviderService.CreateUser(user.Name, user.Role, cancellationToken);
+        metrics.UserCreated(user.Name);
         return Ok(result);
     }
 
