@@ -38,14 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{9004847D
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{74D14219-E126-47AB-B1F7-FFAB0350CE95}"
-	ProjectSection(SolutionItems) = preProject
-		helm\lotus\Chart.yaml = helm\lotus\Chart.yaml
-		helm\lotus\values.yaml = helm\lotus\values.yaml
-		helm\дз Работа с Helm-ом.md = helm\дз Работа с Helm-ом.md
-		helm\prometheus.yaml = helm\prometheus.yaml
-		helm\service-monitor.yaml = helm\service-monitor.yaml
-		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6}"
 EndProject
@@ -59,11 +51,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{
 		helm\lotus\templates\service.yaml = helm\lotus\templates\service.yaml
 		helm\lotus\templates\serviceaccount.yaml = helm\lotus\templates\serviceaccount.yaml
 		helm\lotus\templates\config.yaml = helm\lotus\templates\config.yaml
+		helm\lotus\templates\servicemonitor.yaml = helm\lotus\templates\servicemonitor.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A6CFE0F0-78AF-4577-A571-3B0CFA2B016D}"
 	ProjectSection(SolutionItems) = preProject
 		helm\lotus\templates\tests\test-connection.yaml = helm\lotus\templates\tests\test-connection.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lotus", "lotus", "{2604A36B-8D86-48FB-A24C-0CD61C7A11CF}"
+	ProjectSection(SolutionItems) = preProject
+		helm\lotus\Chart.yaml = helm\lotus\Chart.yaml
+		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
+		helm\lotus\values.yaml = helm\lotus\values.yaml
+		helm\дз Работа с Helm-ом.md = helm\дз Работа с Helm-ом.md
+		helm\metrics\prometheus.yaml = helm\metrics\prometheus.yaml
+		helm\metrics\ДЗ Prometheus. Grafana.md = helm\metrics\ДЗ Prometheus. Grafana.md
 	EndProjectSection
 EndProject
 Global
@@ -86,8 +89,9 @@ Global
 		{84F31160-2812-4A50-91BF-9FEF0AD5C65C} = {366DC559-19C2-4200-B9C5-7C261CF40FFA}
 		{0584B2DF-3523-435D-A002-B6D2C77BFFEA} = {5776CD2B-0896-4715-B058-0CD3954A3709}
 		{23D77A93-3FFB-4124-9280-61DC4ABDD7BE} = {4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}
-		{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6} = {74D14219-E126-47AB-B1F7-FFAB0350CE95}
-		{9C7D4B52-10A7-4DF4-A9C2-F4313348D10D} = {74D14219-E126-47AB-B1F7-FFAB0350CE95}
 		{A6CFE0F0-78AF-4577-A571-3B0CFA2B016D} = {9C7D4B52-10A7-4DF4-A9C2-F4313348D10D}
+		{2604A36B-8D86-48FB-A24C-0CD61C7A11CF} = {74D14219-E126-47AB-B1F7-FFAB0350CE95}
+		{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6} = {2604A36B-8D86-48FB-A24C-0CD61C7A11CF}
+		{9C7D4B52-10A7-4DF4-A9C2-F4313348D10D} = {2604A36B-8D86-48FB-A24C-0CD61C7A11CF}
 	EndGlobalSection
 EndGlobal

@@ -1,28 +1,36 @@
-Работа с Helm-ом
+## Работа с Helm-ом
 
-minikube delete -- обнулим minikube если нужно
-minikube start -- стартуем minikube
-minikube dashboard -- запускаем дашборд кубера
+### Обнулим minikube если нужно
+minikube delete
 
-alias k="minikube kubectl --" -- для удобства создаем алиас для работы с kubectl
-minikube addons enable ingress -- включаем ingress аддон от NGINX
-kubectl get pods -n ingress-nginx -- проеряем что ingress NGINX запустился
-minikube tunnel -- стартуем тунель чтобы подключаться к нашему сервису локально 
+### стартуем minikube
+minikube start
 
-Команда для запуска сервиса
+### запускаем дашборд кубера
+minikube dashboard
+
+### для удобства создаем алиас для работы с kubectl
+alias k="minikube kubectl --"
+
+### включаем ingress аддон от NGINX
+minikube addons enable ingress 
+
+### проверяем что ingress NGINX запустился
+kubectl get pods -n ingress-nginx
+
+### стартуем тунель чтобы подключаться к нашему сервису локально
+minikube tunnel  
+
+### Команда для запуска сервиса
 helm upgrade --install lotus ./lotus --values lotus/values.yaml
 
-команда установки БД из helm, вместе с файлом values.yaml
+### БД устанавливается из helm, вместе с файлом values.yaml
 
-Postman коллекция в этом папке
-Запустил newman run Otus.postman_collection.json
+### Postman коллекция в этом папке
+### Запустить коллекцию командой
+newman run Otus.postman_collection.json
 
-Результат запуска коллекции
-
-newman
-
-Otus
-
+### Результат запуска коллекции
 → Create user
 POST http://arch.homework/user [200 OK, 156B, 66ms]
 ✓  Status code is 200

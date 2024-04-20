@@ -1,0 +1,20 @@
+{{- if .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "lotus.fullname" . }}
+  labels:
+    {{- include "lotus.labels" . | nindent 4 }}
+spec:
+  jobLabel: {{ include "lotus.fullname" . }}
+  namespaceSelector:
+    matchNames:
+      - "{{ $.Release.Namespace }}"
+  selector:
+    matchLabels:
+      {{- include "lotus.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - interval: 30s
+      port: {{ .Values.service.portName }}
+      path: /metrics
+  {{- end }}
