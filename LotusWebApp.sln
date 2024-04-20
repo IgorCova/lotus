@@ -38,6 +38,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{9004847D
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{74D14219-E126-47AB-B1F7-FFAB0350CE95}"
+	ProjectSection(SolutionItems) = preProject
+		helm\дз Работа с Helm-ом.md = helm\дз Работа с Helm-ом.md
+		helm\ДЗ Prometheus. Grafana.md = helm\ДЗ Prometheus. Grafana.md
+		helm\prometheus.yaml = helm\prometheus.yaml
+		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
+		helm\grafana.json = helm\grafana.json
+		helm\img.png = helm\img.png
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6}"
 EndProject
@@ -62,11 +70,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lotus", "lotus", "{2604A36B-8D86-48FB-A24C-0CD61C7A11CF}"
 	ProjectSection(SolutionItems) = preProject
 		helm\lotus\Chart.yaml = helm\lotus\Chart.yaml
-		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
 		helm\lotus\values.yaml = helm\lotus\values.yaml
-		helm\дз Работа с Helm-ом.md = helm\дз Работа с Helm-ом.md
-		helm\metrics\prometheus.yaml = helm\metrics\prometheus.yaml
-		helm\metrics\ДЗ Prometheus. Grafana.md = helm\metrics\ДЗ Prometheus. Grafana.md
 	EndProjectSection
 EndProject
 Global

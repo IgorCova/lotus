@@ -17,4 +17,7 @@ http://arch.homework:9000
 ### Запустим бенчмарк на один из методов сервиса
 ab -n 500 -c 50 http://arch.homework/user/all
 
-FOR /L %N IN () DO ab -n 50 -c 10 http://arch.homework/user/all
+## Grafana Dashboard 
+### файлик во вложении
+### Скриншот
+![img.png](img.png)
