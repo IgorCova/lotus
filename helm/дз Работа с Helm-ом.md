@@ -21,7 +21,10 @@ kubectl get pods -n ingress-nginx
 ### стартуем тунель чтобы подключаться к нашему сервису локально
 minikube tunnel  
 
-### Команда для запуска сервиса
+### Команда для запуска сервиса без сбора метрик
+helm upgrade --install lotus ./lotus --values lotus/values.yaml --set metrics.serviceMonitor.enabled=false
+
+### Команда для запуска сервиса со сбором метрик, для запуска необходимо сначала поднять stack prometheus
 helm upgrade --install lotus ./lotus --values lotus/values.yaml
 
 ### БД устанавливается из helm, вместе с файлом values.yaml
