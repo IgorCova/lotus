@@ -34,6 +34,7 @@ helm upgrade --install lotus ./lotus --values lotus/values.yaml
 newman run Otus.postman_collection.json
 
 ### Результат запуска коллекции
+```
 → Create user
 POST http://arch.homework/user [200 OK, 156B, 66ms]
 ✓  Status code is 200
@@ -74,3 +75,4 @@ DELETE http://arch.homework/user/fe110b52-c56f-4438-8f8b-d361c573c603 [200 OK, 1
 ├────────────────────────────────────────────────────────────────┤
 │ average response time: 32ms [min: 11ms, max: 66ms, s.d.: 22ms] │
 └────────────────────────────────────────────────────────────────┘
+```
