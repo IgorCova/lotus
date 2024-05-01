@@ -1,7 +1,7 @@
 using LotusWebApp.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LotusWebApp;
+namespace LotusWebApp.Controllers;
 
 [Route("[controller]")]
 [ApiController]
