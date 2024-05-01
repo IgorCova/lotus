@@ -72,6 +72,10 @@ ingress:
           pathType: Prefix
         - path: /metrics
           pathType: Prefix
+        - path: /profile
+          pathType: Prefix
+        - path: /page
+          pathType: Prefix
   tls: []
 
 resources: {}

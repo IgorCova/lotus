@@ -45,6 +45,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{74D14219-E
 		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
 		helm\grafana.json = helm\grafana.json
 		helm\img.png = helm\img.png
+		helm\ДЗ BFF и APIgateway.md = helm\ДЗ BFF и APIgateway.md
+		helm\img_1.png = helm\img_1.png
+		helm\OtusWithAuth.postman_collection.json = helm\OtusWithAuth.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6}"
