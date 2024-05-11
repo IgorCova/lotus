@@ -109,8 +109,12 @@ builder.Services.AddAuthentication(options => {
         };
     });
 
-builder.Services.AddSingleton<ProducerService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<TokenService, TokenService>();
+builder.Services.AddScoped<IBillingService, BillingService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
+
 var app = builder.Build();
 app.UseMiddleware<JwtMiddleware>(); // JWT Middleware configuration
 // Мидлварь для сбора http request метрик

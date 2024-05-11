@@ -11,6 +11,9 @@ public class ApplicationDbContext : IdentityUserContext<ApplicationUser>, IConte
 {
    private readonly DbContextOptions<ApplicationDbContext> _options;
    public DbSet<Page> Pages => Set<Page>();
+   public DbSet<Billing> Billings => Set<Billing>();
+   public DbSet<BillingHistory> BillingHistories => Set<BillingHistory>();
+   public DbSet<Notification> Notifications => Set<Notification>();
 
    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
    {

@@ -37,11 +37,16 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: ConnectionStrings__db.lotus
-            valueFrom:
-              secretKeyRef:
-                name: lotus-secret
-                key: DATABASE_URI
+            - name: ConnectionStrings__db.lotus
+              valueFrom:
+                secretKeyRef:
+                  name: lotus-secret
+                  key: DATABASE_URI
+            - name: ConnectionStrings__kafka.lotus
+              valueFrom:
+                secretKeyRef:
+                  name: lotus-secret
+                  key: KAFKA_URI
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

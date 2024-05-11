@@ -14,7 +14,7 @@ public class ProfileController(
     UserManager<ApplicationUser> userManager,
     ApplicationDbContext context,
     TokenService tokenService,
-    ProducerService producerService) : ControllerBase
+    IBillingService billingService) : ControllerBase
 {
     /// <summary>
     /// Register user
@@ -31,15 +31,14 @@ public class ProfileController(
             return BadRequest(ModelState);
         }
 
-        var result = await userManager.CreateAsync(
-            new ApplicationUser { UserName = request.Username, Email = request.Email, Role = Role.User },
-            request.Password!
-        );
+        var user = new ApplicationUser { UserName = request.Username, Email = request.Email, Role = Role.User };
+        var result = await userManager.CreateAsync(user, request.Password!);
 
         if (result.Succeeded)
         {
             request.Password = "";
-            await producerService.ProduceAsync($"User with email: {request.Email} was registered");
+            await billingService.UserRegistered(user.Id, cancellationToken);
+
             return CreatedAtAction(nameof(Register), new { email = request.Email, role = request.Role }, request);
         }
 
