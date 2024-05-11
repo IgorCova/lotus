@@ -10,7 +10,11 @@ namespace LotusWebApp.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class ProfileController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, TokenService tokenService) : ControllerBase
+public class ProfileController(
+    UserManager<ApplicationUser> userManager,
+    ApplicationDbContext context,
+    TokenService tokenService,
+    ProducerService producerService) : ControllerBase
 {
     /// <summary>
     /// Register user
@@ -35,6 +39,7 @@ public class ProfileController(UserManager<ApplicationUser> userManager, Applica
         if (result.Succeeded)
         {
             request.Password = "";
+            await producerService.ProduceAsync($"User with email: {request.Email} was registered");
             return CreatedAtAction(nameof(Register), new { email = request.Email, role = request.Role }, request);
         }
 

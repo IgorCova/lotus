@@ -82,6 +82,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Домашние задан
 		Домашние задания\ДЗ сервис заказа.md = Домашние задания\ДЗ сервис заказа.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusWebApp.Worker", "LotusWebApp.Worker\LotusWebApp.Worker.csproj", "{361E903A-1A86-402E-B0A2-089230D7A17D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{23D77A93-3FFB-4124-9280-61DC4ABDD7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23D77A93-3FFB-4124-9280-61DC4ABDD7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23D77A93-3FFB-4124-9280-61DC4ABDD7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361E903A-1A86-402E-B0A2-089230D7A17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361E903A-1A86-402E-B0A2-089230D7A17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361E903A-1A86-402E-B0A2-089230D7A17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361E903A-1A86-402E-B0A2-089230D7A17D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0068E82F-BCDF-487B-BC0F-891607897D5F} = {4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}
@@ -106,5 +112,6 @@ Global
 		{2604A36B-8D86-48FB-A24C-0CD61C7A11CF} = {74D14219-E126-47AB-B1F7-FFAB0350CE95}
 		{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6} = {2604A36B-8D86-48FB-A24C-0CD61C7A11CF}
 		{9C7D4B52-10A7-4DF4-A9C2-F4313348D10D} = {2604A36B-8D86-48FB-A24C-0CD61C7A11CF}
+		{361E903A-1A86-402E-B0A2-089230D7A17D} = {4EEF81C3-87FC-42FA-BBAA-59B8ECAF4C4F}
 	EndGlobalSection
 EndGlobal
