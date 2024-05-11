@@ -40,9 +40,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{74D14219-E126-47AB-B1F7-FFAB0350CE95}"
 	ProjectSection(SolutionItems) = preProject
 		helm\prometheus.yaml = helm\prometheus.yaml
-		helm\Otus.postman_collection.json = helm\Otus.postman_collection.json
 		helm\grafana.json = helm\grafana.json
-		helm\OtusWithAuth.postman_collection.json = helm\OtusWithAuth.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6}"
@@ -73,13 +71,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lotus", "lotus", "{2604A36B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Домашние задания", "Домашние задания", "{A1CD7D45-B3AA-4075-87E1-1955DEEDE49C}"
 	ProjectSection(SolutionItems) = preProject
-		Домашние задания\дз Работа с Helm-ом.md = Домашние задания\дз Работа с Helm-ом.md
-		Домашние задания\ДЗ Prometheus. Grafana.md = Домашние задания\ДЗ Prometheus. Grafana.md
-		Домашние задания\ДЗ BFF и APIgateway.md = Домашние задания\ДЗ BFF и APIgateway.md
-		Домашние задания\Паттерны_декомпозиции_микросервисов____ДЗ-504866-c8318c.md = Домашние задания\Паттерны_декомпозиции_микросервисов____ДЗ-504866-c8318c.md
 		Домашние задания\img_1.png = Домашние задания\img_1.png
 		Домашние задания\img.png = Домашние задания\img.png
-		Домашние задания\ДЗ сервис заказа.md = Домашние задания\ДЗ сервис заказа.md
+		Домашние задания\01. Инфраструктурные паттерны.md = Домашние задания\01. Инфраструктурные паттерны.md
+		Домашние задания\06. Backend for frontends. Apigateway.md = Домашние задания\06. Backend for frontends. Apigateway.md
+		Домашние задания\05. Prometheus. Grafana.md = Домашние задания\05. Prometheus. Grafana.md
+		Домашние задания\04. Инфраструктурные паттерны.md = Домашние задания\04. Инфраструктурные паттерны.md
+		Домашние задания\03. Основы работы с Kubernetes (Часть 2).md = Домашние задания\03. Основы работы с Kubernetes (Часть 2).md
+		Домашние задания\02. Приложение в docker-образ на Dockerhub.md = Домашние задания\02. Приложение в docker-образ на Dockerhub.md
+		Домашние задания\07. Stream processing.md = Домашние задания\07. Stream processing.md
+		Домашние задания\Otus.postman_collection.json = Домашние задания\Otus.postman_collection.json
+		Домашние задания\OtusWithAuth.postman_collection.json = Домашние задания\OtusWithAuth.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusWebApp.Worker", "LotusWebApp.Worker\LotusWebApp.Worker.csproj", "{361E903A-1A86-402E-B0A2-089230D7A17D}"
