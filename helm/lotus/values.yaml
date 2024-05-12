@@ -76,6 +76,12 @@ ingress:
           pathType: Prefix
         - path: /page
           pathType: Prefix
+        - path: /billing
+          pathType: Prefix
+        - path: /notification
+          pathType: Prefix
+        - path: /order
+          pathType: Prefix
   tls: []
 
 resources: {}
