@@ -22,6 +22,12 @@ public static class KafkaRegistrationExtensions
             .GetSection(nameof(KafkaOptions))
             .Get<KafkaOptions>();
 
+        var kafkaConnectionString = configuration
+            .GetConnectionString("kafka.lotus") ?? "localhost:9092";
+
+        ArgumentNullException.ThrowIfNull(kafkaOptions, nameof(kafkaOptions));
+        kafkaOptions.ClientConfig.BootstrapServers = kafkaConnectionString;
+
         ArgumentNullException.ThrowIfNull(kafkaOptions, nameof(kafkaOptions));
         using (var adminClient = new AdminClientBuilder(new AdminClientConfig { BootstrapServers = kafkaOptions.ClientConfig.BootstrapServers }).Build())
         {
