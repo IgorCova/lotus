@@ -33,10 +33,16 @@ public static class KafkaRegistrationExtensions
         {
             try
             {
-
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
                     new TopicSpecification { Name = "UserNotifications", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+            }
+            catch (CreateTopicsException e)
+            {
+                Console.WriteLine($"An error occured creating topic {e.Results[0].Topic}: {e.Results[0].Error.Reason}");
+            }
 
+            try
+            {
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
                     new TopicSpecification { Name = "ORDER_MANAGEMENT_SYSTEM.REQUEST", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
