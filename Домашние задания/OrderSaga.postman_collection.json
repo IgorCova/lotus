@@ -60,61 +60,6 @@
 			"response": []
 		},
 		{
-			"name": "order/place Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 202\", function () {",
-							"    pm.response.to.have.status(202);",
-							"});",
-							"pm.test(\"set orderId\", function () {",
-							"    pm.environment.set(\"orderId\", pm.response.text());",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "accept",
-						"value": "text/plain"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{lotus}}/order/place?idSubscription=1",
-					"host": [
-						"{{lotus}}"
-					],
-					"path": [
-						"order",
-						"place"
-					],
-					"query": [
-						{
-							"key": "idSubscription",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "profile/login",
 			"event": [
 				{
@@ -226,7 +171,7 @@
 							"    pm.response.to.have.status(202);",
 							"});",
 							"pm.test(\"set orderId\", function () {",
-							"    pm.environment.set(\"orderId\", pm.response.text());",
+							"    pm.collectionVariables.set(\"lotusOrderId\", pm.response.text().replace('\"', '').replace('\"', ''));",
 							"});",
 							""
 						],
@@ -316,61 +261,6 @@
 			"response": []
 		},
 		{
-			"name": "stock/add",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "accept",
-						"value": "text/plain"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{lotus}}/stock/add?idSubscription=2&count=1",
-					"host": [
-						"{{lotus}}"
-					],
-					"path": [
-						"stock",
-						"add"
-					],
-					"query": [
-						{
-							"key": "idSubscription",
-							"value": "2"
-						},
-						{
-							"key": "count",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "profile/register 2",
 			"event": [
 				{
@@ -418,49 +308,6 @@
 					"path": [
 						"profile",
 						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "notification 2 Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Body matches string\", function () {",
-							"    var data = JSON.parse(responseBody);",
-							"    pm.expect(data[0].message).to.include('Hello! You pay for order. Order cost amount 95. You balance after 905');",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "accept",
-						"value": "*/*"
-					}
-				],
-				"url": {
-					"raw": "{{lotus}}/notification",
-					"host": [
-						"{{lotus}}"
-					],
-					"path": [
-						"notification"
 					]
 				}
 			},
@@ -578,7 +425,7 @@
 							"    pm.response.to.have.status(202);",
 							"});",
 							"pm.test(\"set orderId\", function () {",
-							"    pm.environment.set(\"orderId\", pm.response.text());",
+							"    pm.collectionVariables.set(\"lotusOrderId\", pm.response.text().replace('\"', '').replace('\"', ''));",
 							"});",
 							""
 						],
@@ -636,6 +483,106 @@
 							"pm.test(\"Body matches string\", function () {",
 							"    var data = JSON.parse(responseBody);",
 							"    pm.expect(data[0].message).to.include('Hello! You pay for order. Order cost amount 95. You balance after 905');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{lotus}}/notification",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stock/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/stock/add?idSubscription=2&count=1",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"stock",
+						"add"
+					],
+					"query": [
+						{
+							"key": "idSubscription",
+							"value": "2"
+						},
+						{
+							"key": "count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "notification Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    var data = JSON.parse(responseBody);",
+							"    pm.expect(data[0].message).to.include('Hello! Your order');",
+							"    pm.expect(data[0].message).to.include('successfully sent to delivery');",
+							"",
 							"});",
 							"",
 							""
@@ -779,7 +726,7 @@
 							"    pm.response.to.have.status(202);",
 							"});",
 							"pm.test(\"set orderId\", function () {",
-							"    pm.environment.set(\"orderId\", pm.response.text());",
+							"    pm.collectionVariables.set(\"lotusOrderId\", pm.response.text().replace('\"', '').replace('\"', ''));",
 							"});",
 							""
 						],
@@ -805,7 +752,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{lotus}}/order/place?idSubscription=2",
+					"raw": "{{lotus}}/order/place?idSubscription=3",
 					"host": [
 						"{{lotus}}"
 					],
@@ -816,7 +763,7 @@
 					"query": [
 						{
 							"key": "idSubscription",
-							"value": "2"
+							"value": "3"
 						}
 					]
 				}
@@ -899,7 +846,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{lotus}}/billing/add-money?money=1000",
+					"raw": "{{lotus}}/billing/add-money?money=1500",
 					"host": [
 						"{{lotus}}"
 					],
@@ -910,7 +857,7 @@
 					"query": [
 						{
 							"key": "money",
-							"value": "1000"
+							"value": "1500"
 						}
 					]
 				}
@@ -993,7 +940,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{lotus}}/stock/add?idSubscription=2&count=1",
+					"raw": "{{lotus}}/stock/add?idSubscription=3&count=1",
 					"host": [
 						"{{lotus}}"
 					],
@@ -1004,7 +951,7 @@
 					"query": [
 						{
 							"key": "idSubscription",
-							"value": "2"
+							"value": "3"
 						},
 						{
 							"key": "count",
@@ -1091,7 +1038,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{lotus}}/delivery/accept?idOrder=b2cc9a1b-ff9b-4a49-9f46-be966e0b114c",
+					"raw": "{{lotus}}/delivery/accept?idOrder={{lotusOrderId}}",
 					"host": [
 						"{{lotus}}"
 					],
@@ -1102,7 +1049,7 @@
 					"query": [
 						{
 							"key": "idOrder",
-							"value": "b2cc9a1b-ff9b-4a49-9f46-be966e0b114c"
+							"value": "{{lotusOrderId}}"
 						}
 					]
 				}
@@ -1122,7 +1069,7 @@
 							"",
 							"pm.test(\"Body matches string\", function () {",
 							"    var data = JSON.parse(responseBody);",
-							"    pm.expect(data[0].message).to.include('Hello! You pay for order. Order cost amount 95. You balance after 905');",
+							"    pm.expect(data[0].message).to.include('sent to delivery');",
 							"});",
 							"",
 							""
@@ -1147,48 +1094,6 @@
 					],
 					"path": [
 						"notification"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "biiling/balance",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Body matches string\", function () {    ",
-							"    var data = JSON.parse(responseBody);",
-							"    pm.expect(data).is.eq(0);",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "accept",
-						"value": "*/*"
-					}
-				],
-				"url": {
-					"raw": "{{lotus}}/billing/balance",
-					"host": [
-						"{{lotus}}"
-					],
-					"path": [
-						"billing",
-						"balance"
 					]
 				}
 			},

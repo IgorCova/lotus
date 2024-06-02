@@ -82,6 +82,10 @@ ingress:
           pathType: Prefix
         - path: /order
           pathType: Prefix
+        - path: /stock
+          pathType: Prefix
+        - path: /delivery
+          pathType: Prefix
   tls: []
 
 resources: {}

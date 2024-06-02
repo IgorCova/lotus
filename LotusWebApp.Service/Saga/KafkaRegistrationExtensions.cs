@@ -3,6 +3,7 @@ using LotusWebApp.Data.Models.Saga;
 using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;
 using Confluent.Kafka;
+using Confluent.Kafka.Admin;
 using LotusWebApp.Consumers;
 using LotusWebApp.Saga.StateMachines;
 using LotusWebApp.Saga.Transports;
@@ -22,7 +23,43 @@ public static class KafkaRegistrationExtensions
             .Get<KafkaOptions>();
 
         ArgumentNullException.ThrowIfNull(kafkaOptions, nameof(kafkaOptions));
+        using (var adminClient = new AdminClientBuilder(new AdminClientConfig { BootstrapServers = kafkaOptions.ClientConfig.BootstrapServers }).Build())
+        {
+            try
+            {
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = "UserNotifications", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.OrderManagementSystemResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.OrderManagementSystemRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.BillingValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.BillingValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.StockValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.StockValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.DeliveryValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.DeliveryValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+
+                adminClient.CreateTopicsAsync(new TopicSpecification[] {
+                    new TopicSpecification { Name = kafkaOptions.Topics.Error, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+
+
+            }
+            catch (CreateTopicsException e)
+            {
+                Console.WriteLine($"An error occured creating topic {e.Results[0].Topic}: {e.Results[0].Error.Reason}");
+            }
+        }
         services.AddMassTransit(massTransit =>
         {
             massTransit.UsingInMemory((context, cfg) =>  cfg.ConfigureEndpoints(context));
