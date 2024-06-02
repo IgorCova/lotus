@@ -33,33 +33,32 @@ public static class KafkaRegistrationExtensions
         {
             try
             {
+
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
                     new TopicSpecification { Name = "UserNotifications", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.OrderManagementSystemResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "ORDER_MANAGEMENT_SYSTEM.REQUEST", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.OrderManagementSystemRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "ORDER_MANAGEMENT_SYSTEM.RESPONSE", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.BillingValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "STOCK_VALIDATION_ENGINE.REQUEST", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.BillingValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "STOCK_VALIDATION_ENGINE.RESPONSE", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.StockValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "BILLING_VALIDATION_ENGINE.REQUEST", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.StockValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "BILLING_VALIDATION_ENGINE.RESPONSE", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.DeliveryValidationEngineRequest, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "DELIVERY_VALIDATION_ENGINE.REQUEST", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.DeliveryValidationEngineResponse, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
+                    new TopicSpecification { Name = "DELIVERY_VALIDATION_ENGINE.RESPONSE", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
 
                 adminClient.CreateTopicsAsync(new TopicSpecification[] {
-                    new TopicSpecification { Name = kafkaOptions.Topics.Error, ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
-
-
+                    new TopicSpecification { Name = "ERROR", ReplicationFactor = 1, NumPartitions = 1 } }).GetAwaiter().GetResult();
             }
             catch (CreateTopicsException e)
             {
