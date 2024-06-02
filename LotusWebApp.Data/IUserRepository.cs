@@ -7,16 +7,16 @@ public interface IUserRepository
     Task<int> CreateUser(string name, string role, CancellationToken cancellationToken);
     Task<int> DeleteUser(Guid userId, CancellationToken cancellationToken);
     Task<int> UpdateUser(Guid userId, string name, string role, CancellationToken cancellationToken);
-    Task<User?> GetUser(Guid userId, CancellationToken cancellationToken);
-    Task<List<User>> GetAllUsers(CancellationToken cancellationToken);
+    Task<Customer?> GetUser(Guid userId, CancellationToken cancellationToken);
+    Task<List<Customer>> GetAllUsers(CancellationToken cancellationToken);
 }
 
-public sealed class UserRepository(MainDbContext context)
-    : RepositoryBase<User>(context), IUserRepository, IRegisterRepository
+public sealed class UserRepository(ApplicationDbContext context)
+    : RepositoryBase<Customer>(context), IUserRepository, IRegisterRepository
 {
     public async Task<int> CreateUser(string name, string role, CancellationToken cancellationToken)
     {
-        await Context.Users.AddAsync(new User
+        await Context.Customers.AddAsync(new Customer
         {
             Id = Guid.NewGuid(),
             Name = name,
@@ -28,18 +28,18 @@ public sealed class UserRepository(MainDbContext context)
 
     public async Task<int> DeleteUser(Guid userId, CancellationToken cancellationToken)
     {
-        var user = await Context.Users.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
+        var user = await Context.Customers.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
         if (user == null)
         {
             return 0;
         }
-        Context.Users.Remove(user);
+        Context.Customers.Remove(user);
         return await Context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<int> UpdateUser(Guid userId, string name, string role, CancellationToken cancellationToken)
     {
-        var user = await Context.Users.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
+        var user = await Context.Customers.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
         if (user == null)
         {
             return 0;
@@ -48,18 +48,18 @@ public sealed class UserRepository(MainDbContext context)
         user.Name = name;
         user.Role = role;
 
-        Context.Users.Update(user);
+        Context.Customers.Update(user);
         return await Context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<User?> GetUser(Guid userId, CancellationToken cancellationToken)
+    public async Task<Customer?> GetUser(Guid userId, CancellationToken cancellationToken)
     {
-        var user = await Context.Users.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
+        var user = await Context.Customers.FindAsync(new object?[] { userId }, cancellationToken: cancellationToken);
         return user;
     }
 
-    public async Task<List<User>> GetAllUsers(CancellationToken cancellationToken)
+    public async Task<List<Customer>> GetAllUsers(CancellationToken cancellationToken)
     {
-        return await Context.Users.ToListAsync(cancellationToken);
+        return await Context.Customers.ToListAsync(cancellationToken);
     }
 }

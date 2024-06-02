@@ -1,5 +1,8 @@
 using LotusWebApp.Data;
 using LotusWebApp.Data.Entities;
+using LotusWebApp.Data.Models.Saga;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 namespace LotusWebApp.Services;
 
@@ -9,10 +12,11 @@ public interface IBillingService
     Task<bool> UserAddMoney(string userId, decimal money, CancellationToken cancellationToken);
     Task<bool> UserWithdrawsMoney(string userId, decimal money, CancellationToken cancellationToken);
     Task<bool> UserPayOrder(string userId, decimal money, CancellationToken cancellationToken);
+    Task<bool> UserPayOrder(Guid orderId, CancellationToken cancellationToken);
     Task<decimal> UserBalance(string userId, CancellationToken cancellationToken);
 }
 
-public class BillingService(ApplicationDbContext context, INotificationService notificationService): IBillingService
+public class BillingService(ApplicationDbContext context, INotificationService notificationService, ITopicProducer<string, BillingValidationResponseEvent> producer): IBillingService
 {
     public async Task UserRegistered(string userId, CancellationToken cancellationToken)
     {
@@ -63,6 +67,18 @@ public class BillingService(ApplicationDbContext context, INotificationService n
         await context.SaveChangesAsync(cancellationToken);
 
         await notificationService.UserNotification(userId, $"Hello! You successfully added money amount {money}. You balance {billing.Balance}", cancellationToken);
+
+        var userOrders = await context.Orders
+            .Where(x => x.UserId == userId && x.Status == "Created")
+            .ToListAsync(cancellationToken);
+
+        if (userOrders.Count != 0)
+        {
+            foreach (var order in userOrders)
+            {
+                await UserPayOrder(order.Id, cancellationToken);
+            }
+        }
 
         return true;
     }
@@ -140,6 +156,43 @@ public class BillingService(ApplicationDbContext context, INotificationService n
         await context.SaveChangesAsync(cancellationToken);
         await notificationService.UserNotification(userId, $"Hello! You pay for order. Order cost amount {money}. You balance after {billing.Balance}", cancellationToken);
         return true;
+    }
+
+    public async Task<bool> UserPayOrder(Guid orderId, CancellationToken cancellationToken)
+    {
+        var order = await context.Orders.FirstOrDefaultAsync(x => x.Id == orderId, cancellationToken);
+        if (order == null)
+        {
+            return false;
+        }
+
+        var subscriptionId = order.SubsriptionId;
+        var cost = subscriptionId switch
+        {
+            1 => 10,
+            2 => 95,
+            3 => 1200,
+            _=> 0
+        };
+        var payed = await UserPayOrder(order.UserId, cost, cancellationToken);
+        if (payed)
+        {
+            order.Status = "Payed";
+            await context.SaveChangesAsync(cancellationToken);
+            var key = Guid.NewGuid();
+
+            var response = new BillingValidationResponseEvent
+            {
+                HasMoney = true,
+                OrderId = order.Id
+            };
+
+            await producer
+                .Produce(key.ToString(), response, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        return payed;
     }
 
     public async Task<decimal> UserBalance(string userId, CancellationToken cancellationToken)

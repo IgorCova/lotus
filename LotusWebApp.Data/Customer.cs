@@ -2,7 +2,7 @@
 
 namespace LotusWebApp.Data;
 
-public class User
+public class Customer
 {
     [Key]
     public Guid Id {get; set; }

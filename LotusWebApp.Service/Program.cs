@@ -1,10 +1,11 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using Asp.Versioning;
 using LotusWebApp;
 using LotusWebApp.Data;
 using LotusWebApp.Data.Models;
 using LotusWebApp.Metrics;
+using LotusWebApp.Saga;
+using LotusWebApp.Saga.Services;
 using LotusWebApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,9 @@ var configuration = builder.Configuration;
 builder.Services.RegisterContext(typeof(IContextRegistration), configuration);
 builder.Services.RegisterAllRepository();
 builder.Services.RegisterDataProviderService();
+
+builder.Services.AddTransient<IApiService, ApiService>();
+builder.Services.AddCustomKafka(builder.Configuration);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -109,11 +113,13 @@ builder.Services.AddAuthentication(options => {
         };
     });
 
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<TokenService, TokenService>();
 builder.Services.AddScoped<IBillingService, BillingService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+builder.Services.AddScoped<IStockService, StockService>();
 
 var app = builder.Build();
 app.UseMiddleware<JwtMiddleware>(); // JWT Middleware configuration
@@ -122,9 +128,6 @@ app.UseHttpRequestMetrics();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dataContext = scope.ServiceProvider.GetRequiredService<MainDbContext>();
-    dataContext.Database.Migrate();
-
     var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     applicationDbContext.Database.Migrate();
 }

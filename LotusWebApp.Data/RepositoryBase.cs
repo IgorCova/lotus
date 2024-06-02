@@ -9,13 +9,13 @@ namespace LotusWebApp.Data;
 public class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposable
 	where TEntity : class
 {
-	public readonly MainDbContext Context;
+	public readonly ApplicationDbContext Context;
 
 	/// <summary>
 	/// .ctor
 	/// </summary>
 	/// <param name="context">Контекст базы данных</param>
-	protected RepositoryBase(MainDbContext context)
+	protected RepositoryBase(ApplicationDbContext context)
 	{
 		Context = context;
 	}

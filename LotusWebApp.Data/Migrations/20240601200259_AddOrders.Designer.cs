@@ -3,6 +3,7 @@ using System;
 using LotusWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LotusWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240601200259_AddOrders")]
+    partial class AddOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,9 +247,6 @@ namespace LotusWebApp.Data.Migrations
                     b.Property<bool>("HasMoney")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.ToTable("BillingValidationResponseEvent");
@@ -262,9 +262,6 @@ namespace LotusWebApp.Data.Migrations
 
                     b.Property<bool>("DeliveryAvailable")
                         .HasColumnType("boolean");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -386,9 +383,6 @@ namespace LotusWebApp.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
 
                     b.Property<bool>("StockAvailable")
                         .HasColumnType("boolean");

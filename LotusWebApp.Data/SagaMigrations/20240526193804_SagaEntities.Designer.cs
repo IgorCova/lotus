@@ -3,17 +3,20 @@ using System;
 using LotusWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LotusWebApp.Data.Migrations
+namespace LotusWebApp.Data.SagaMigrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526193804_SagaEntities")]
+    partial class SagaEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,31 +118,6 @@ namespace LotusWebApp.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("LotusWebApp.Data.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("SubsriptionId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("LotusWebApp.Data.Entities.Page", b =>
                 {
                     b.Property<int>("Id")
@@ -233,175 +211,6 @@ namespace LotusWebApp.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.BillingValidationResponseEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("HasMoney")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BillingValidationResponseEvent");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.DeliveryValidationResponseEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("DeliveryAvailable")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeliveryValidationResponseEvent");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.NotificationReply<LotusWebApp.Data.Models.Saga.OrderResponseEvent>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("DataId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Success")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DataId");
-
-                    b.ToTable("NotificationReply<OrderResponseEvent>");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.OrderRequestSagaInstance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("CorrelationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("CurrentState")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CustomerType")
-                        .HasColumnType("text");
-
-                    b.Property<bool?>("HasMoney")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("NotificationReplyId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("SubscriptionId")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NotificationReplyId");
-
-                    b.ToTable("OrderState");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.OrderResponseEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BillingValidationId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CustomerType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("DeliveryValidationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("StockValidationId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BillingValidationId");
-
-                    b.HasIndex("DeliveryValidationId");
-
-                    b.HasIndex("StockValidationId");
-
-                    b.ToTable("OrderResponseEvent");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.StockValidationResponseEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("StockAvailable")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SubscriptionId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StockValidationResponseEvent");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -466,45 +275,6 @@ namespace LotusWebApp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.NotificationReply<LotusWebApp.Data.Models.Saga.OrderResponseEvent>", b =>
-                {
-                    b.HasOne("LotusWebApp.Data.Models.Saga.OrderResponseEvent", "Data")
-                        .WithMany()
-                        .HasForeignKey("DataId");
-
-                    b.Navigation("Data");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.OrderRequestSagaInstance", b =>
-                {
-                    b.HasOne("LotusWebApp.Data.Models.Saga.NotificationReply<LotusWebApp.Data.Models.Saga.OrderResponseEvent>", "NotificationReply")
-                        .WithMany()
-                        .HasForeignKey("NotificationReplyId");
-
-                    b.Navigation("NotificationReply");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Models.Saga.OrderResponseEvent", b =>
-                {
-                    b.HasOne("LotusWebApp.Data.Models.Saga.BillingValidationResponseEvent", "BillingValidation")
-                        .WithMany()
-                        .HasForeignKey("BillingValidationId");
-
-                    b.HasOne("LotusWebApp.Data.Models.Saga.DeliveryValidationResponseEvent", "DeliveryValidation")
-                        .WithMany()
-                        .HasForeignKey("DeliveryValidationId");
-
-                    b.HasOne("LotusWebApp.Data.Models.Saga.StockValidationResponseEvent", "StockValidation")
-                        .WithMany()
-                        .HasForeignKey("StockValidationId");
-
-                    b.Navigation("BillingValidation");
-
-                    b.Navigation("DeliveryValidation");
-
-                    b.Navigation("StockValidation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

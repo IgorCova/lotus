@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{53F8699F-EFB8-41C3-9054-292AEEC8F15B}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		Dockerfile.Worker = Dockerfile.Worker
+		.dockerignore = .dockerignore
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0584B2DF-3523-435D-A002-B6D2C77BFFEA}"
@@ -84,6 +86,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Домашние задан
 		Домашние задания\06. Backend for frontends. Apigateway.png = Домашние задания\06. Backend for frontends. Apigateway.png
 		Домашние задания\07. Stream processing.png = Домашние задания\07. Stream processing.png
 		Домашние задания\StreamProcessing.postman_collection.json = Домашние задания\StreamProcessing.postman_collection.json
+		Домашние задания\08. Распределенные транзакции.md = Домашние задания\08. Распределенные транзакции.md
+		Домашние задания\OrderSaga.postman_collection.json = Домашние задания\OrderSaga.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusWebApp.Worker", "LotusWebApp.Worker\LotusWebApp.Worker.csproj", "{361E903A-1A86-402E-B0A2-089230D7A17D}"

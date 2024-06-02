@@ -1,5 +1,6 @@
 using LotusWebApp.Data.Entities;
 using LotusWebApp.Data.Models;
+using LotusWebApp.Data.Models.Saga;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,10 @@ public class ApplicationDbContext : IdentityUserContext<ApplicationUser>, IConte
    public DbSet<Billing> Billings => Set<Billing>();
    public DbSet<BillingHistory> BillingHistories => Set<BillingHistory>();
    public DbSet<Notification> Notifications => Set<Notification>();
+   public DbSet<Order> Orders => Set<Order>();
+
+   public DbSet<Customer> Customers => Set<Customer>();
+   public DbSet<OrderRequestSagaInstance> OrderState => Set<OrderRequestSagaInstance>();
 
    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
    {

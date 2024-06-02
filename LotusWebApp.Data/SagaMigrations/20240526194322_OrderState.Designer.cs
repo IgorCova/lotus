@@ -3,17 +3,20 @@ using System;
 using LotusWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LotusWebApp.Data.Migrations
+namespace LotusWebApp.Data.SagaMigrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526194322_OrderState")]
+    partial class OrderState
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,31 +116,6 @@ namespace LotusWebApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("LotusWebApp.Data.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("SubsriptionId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("LotusWebApp.Data.Entities.Page", b =>
@@ -244,9 +222,6 @@ namespace LotusWebApp.Data.Migrations
                     b.Property<bool>("HasMoney")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.ToTable("BillingValidationResponseEvent");
@@ -262,9 +237,6 @@ namespace LotusWebApp.Data.Migrations
 
                     b.Property<bool>("DeliveryAvailable")
                         .HasColumnType("boolean");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -321,9 +293,6 @@ namespace LotusWebApp.Data.Migrations
                     b.Property<int?>("NotificationReplyId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("SubscriptionId")
                         .HasColumnType("text");
 
@@ -351,17 +320,17 @@ namespace LotusWebApp.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BillingValidationId")
+                    b.Property<int>("BillingValidationId")
                         .HasColumnType("integer");
 
                     b.Property<string>("CustomerType")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("DeliveryValidationId")
+                    b.Property<int>("DeliveryValidationId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("StockValidationId")
+                    b.Property<int>("StockValidationId")
                         .HasColumnType("integer");
 
                     b.Property<string>("UserId")
@@ -386,9 +355,6 @@ namespace LotusWebApp.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
 
                     b.Property<bool>("StockAvailable")
                         .HasColumnType("boolean");
@@ -490,15 +456,21 @@ namespace LotusWebApp.Data.Migrations
                 {
                     b.HasOne("LotusWebApp.Data.Models.Saga.BillingValidationResponseEvent", "BillingValidation")
                         .WithMany()
-                        .HasForeignKey("BillingValidationId");
+                        .HasForeignKey("BillingValidationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LotusWebApp.Data.Models.Saga.DeliveryValidationResponseEvent", "DeliveryValidation")
                         .WithMany()
-                        .HasForeignKey("DeliveryValidationId");
+                        .HasForeignKey("DeliveryValidationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LotusWebApp.Data.Models.Saga.StockValidationResponseEvent", "StockValidation")
                         .WithMany()
-                        .HasForeignKey("StockValidationId");
+                        .HasForeignKey("StockValidationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BillingValidation");
 

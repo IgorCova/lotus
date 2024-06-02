@@ -83,4 +83,37 @@ public class OrderController(UserManager<ApplicationUser> userManager, IOrderSer
     {
         return Ok(_subscriptions);
     }
+
+    [Authorize]
+    [HttpPost("place")]
+    public async Task<ActionResult<Page>> Place(int idSubscription, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        if (HttpContext.Items["User"] is not ApplicationUser user)
+        {
+            return NotFound("User not found");
+        }
+
+        var foundUser = await userManager.FindByIdAsync(user.Id);
+
+        if (foundUser == null)
+        {
+            return NotFound("User not found");
+        }
+
+        var subscription = _subscriptions.FirstOrDefault(x => x.Id == idSubscription);
+
+        if (subscription == null)
+        {
+            return NotFound($"Subscription {idSubscription} not found");
+        }
+
+        var orderId = await orderService.PlaceOrder(foundUser.Id, idSubscription, cancellationToken);
+
+        return Accepted(orderId);
+    }
 }
