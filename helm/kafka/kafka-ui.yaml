@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-ui
+  name: kafka-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-ui
+  template:
+    metadata:
+      labels:
+        app: kafka-ui
+    spec:
+      containers:
+        - env:
+            - name: DYNAMIC_CONFIG_ENABLED
+              value: "true"
+            - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
+              value: kafka-service:9092
+            - name: KAFKA_CLUSTERS_0_METRICS_PORT
+              value: "9997"
+            - name: KAFKA_CLUSTERS_0_NAME
+              value: local
+          image: provectuslabs/kafka-ui:latest
+          name: kafka-ui-lotus
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kafka-ui
+  name: kafka-ui
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: kafka-ui
