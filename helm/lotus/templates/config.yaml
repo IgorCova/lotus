@@ -12,4 +12,4 @@ metadata:
 type: Opaque
 data:
   DATABASE_URI: {{ printf "User ID=lotus;Password=lotus;Server=lotus-postgresql;Port=5432;Database=lotus;Pooling=true;Maximum Pool Size=100;" | b64enc | quote }}
-  KAFKA_URI: {{ printf "kafka.default.svc.cluster.local:9092" | b64enc | quote }}
+  KAFKA_URI: {{ printf "kafka-service:9092" | b64enc | quote }}

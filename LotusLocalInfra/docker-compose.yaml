@@ -13,8 +13,8 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
-    container_name: zookeeperLotus
-    hostname: zookeeperLotus
+    container_name: zookeeper-lotus
+    hostname: zookeeper-lotus
     ports:
       - "2181:2181"
     environment:
@@ -24,8 +24,8 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:7.3.2
-    hostname: kafkaLotus
-    container_name: kafkaLotus
+    hostname: kafka-lotus
+    container_name: kafka-lotus
     ports:
       - "9092:9092"
       - "29092:29092"
