@@ -23,6 +23,7 @@ builder.Services.RegisterDataProviderService();
 
 builder.Services.AddTransient<IApiService, ApiService>();
 builder.Services.AddCustomKafka(builder.Configuration);
+builder.Services.AddMemoryCache();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

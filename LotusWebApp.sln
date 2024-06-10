@@ -88,6 +88,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Домашние задан
 		Домашние задания\StreamProcessing.postman_collection.json = Домашние задания\StreamProcessing.postman_collection.json
 		Домашние задания\08. Распределенные транзакции.md = Домашние задания\08. Распределенные транзакции.md
 		Домашние задания\OrderSaga.postman_collection.json = Домашние задания\OrderSaga.postman_collection.json
+		Домашние задания\09. Идемпотентость и коммутативность API в HTTP и очередях.md = Домашние задания\09. Идемпотентость и коммутативность API в HTTP и очередях.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusWebApp.Worker", "LotusWebApp.Worker\LotusWebApp.Worker.csproj", "{361E903A-1A86-402E-B0A2-089230D7A17D}"

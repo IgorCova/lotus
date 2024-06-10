@@ -1,0 +1,653 @@
+{
+	"info": {
+		"_postman_id": "f3d732f5-6a7e-4206-9780-27be07ab4c08",
+		"name": "Otus with Order Idempotency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1265065"
+	},
+	"item": [
+		{
+			"name": "profile/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"set email\", function () {",
+							"    var data = JSON.parse(responseBody);   ",
+							"    pm.environment.set(\"email\", data.email);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"{{password}}\",\n  \"username\": \"{{$randomUserName}}\",\n  \"role\": \"Admin\"\n}"
+				},
+				"url": {
+					"raw": "{{lotus}}/profile/register",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"profile",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"set userId\", function () {",
+							"    var data = JSON.parse(responseBody);   ",
+							"    pm.environment.set(\"lotustoken\", data.token);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{lotus}}/profile/login",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"profile",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "billing/add-money",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/billing/add-money?money=1000",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"billing",
+						"add-money"
+					],
+					"query": [
+						{
+							"key": "money",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order/place",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"pm.test(\"set orderId\", function () {",
+							"    pm.collectionVariables.set(\"lotusOrderId\", pm.response.text().replace('\"', '').replace('\"', ''));",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/order/place?idSubscription=1",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"order",
+						"place"
+					],
+					"query": [
+						{
+							"key": "idSubscription",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "notification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    var data = JSON.parse(responseBody);",
+							"    pm.expect(data[0].message).to.include('Hello! Your order');",
+							"    pm.expect(data[0].message).to.include('successfully sent to delivery');",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							" }, 3000);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{lotus}}/notification",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order/place 2nd",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"pm.test(\"check orderId\", function () {",
+							"    var lotusOrderId = pm.collectionVariables.get(\"lotusOrderId\");",
+							"    pm.expect(pm.response.text()).contains(lotusOrderId);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/order/place?idSubscription=1",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"order",
+						"place"
+					],
+					"query": [
+						{
+							"key": "idSubscription",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile/register 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"set email\", function () {",
+							"    var data = JSON.parse(responseBody);   ",
+							"    pm.environment.set(\"email\", data.email);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"{{password}}\",\n  \"username\": \"{{$randomUserName}}\",\n  \"role\": \"Admin\"\n}"
+				},
+				"url": {
+					"raw": "{{lotus}}/profile/register",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"profile",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile/login 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"set userId\", function () {",
+							"    var data = JSON.parse(responseBody);   ",
+							"    pm.environment.set(\"lotustoken\", data.token);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{lotus}}/profile/login",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"profile",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "billing/add-money 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/billing/add-money?money=1000",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"billing",
+						"add-money"
+					],
+					"query": [
+						{
+							"key": "money",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order/place 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"pm.test(\"set orderId\", function () {",
+							"    pm.collectionVariables.set(\"lotusOrderId\", pm.response.text().replace('\"', '').replace('\"', ''));",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/order/place?idSubscription=2",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"order",
+						"place"
+					],
+					"query": [
+						{
+							"key": "idSubscription",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order/place new",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"pm.test(\"check orderId\", function () {",
+							"    var lotusOrderId = pm.collectionVariables.get(\"lotusOrderId\");",
+							"    pm.expect(pm.response.text()).not.contains(lotusOrderId);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lotus}}/order/place?idSubscription=1",
+					"host": [
+						"{{lotus}}"
+					],
+					"path": [
+						"order",
+						"place"
+					],
+					"query": [
+						{
+							"key": "idSubscription",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{lotustoken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "lotus",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "lotusOrderId",
+			"value": ""
+		},
+		{
+			"key": "lotus",
+			"value": "http://arch.homework",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
