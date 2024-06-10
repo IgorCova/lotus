@@ -216,63 +216,6 @@
 			"response": []
 		},
 		{
-			"name": "notification",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Body matches string\", function () {",
-							"    var data = JSON.parse(responseBody);",
-							"    pm.expect(data[0].message).to.include('Hello! Your order');",
-							"    pm.expect(data[0].message).to.include('successfully sent to delivery');",
-							"",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"setTimeout(function(){",
-							"          console.log(\"Sleeping for 3 seconds before next request.\");",
-							" }, 3000);"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "accept",
-						"value": "*/*"
-					}
-				],
-				"url": {
-					"raw": "{{lotus}}/notification",
-					"host": [
-						"{{lotus}}"
-					],
-					"path": [
-						"notification"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "order/place 2nd",
 			"event": [
 				{
