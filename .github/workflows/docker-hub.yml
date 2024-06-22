@@ -12,16 +12,7 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - linux/arm64/v8
     steps:
-      - name: Prepare
-        run: |
-          platform=${{ matrix.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV 
       - name: Check out the repo
         uses: actions/checkout@v3
 
@@ -46,6 +37,6 @@ jobs:
           context: "{{defaultContext}}"
           push: true
           tags: emptyparam/lotus:latest
-          platforms: ${{ matrix.platform }}
+          platforms: linux/arm64/v8
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
