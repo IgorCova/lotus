@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - linux/arm/v8
+          - linux/arm/v7
     steps:
       - name: Prepare
         run: |
@@ -45,7 +45,7 @@ jobs:
 
       - name: Build and push Docker image
         id: build
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v6
         with:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
