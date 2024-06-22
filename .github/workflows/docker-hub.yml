@@ -18,6 +18,10 @@ jobs:
         platform:
           - linux/arm64/v8
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV 
       - name: Check out the repo
         uses: actions/checkout@v3
 
@@ -42,5 +46,6 @@ jobs:
           context: "{{defaultContext}}"
           push: true
           tags: emptyparam/lotus:latest
+          platforms: ${{ matrix.platform }}
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
