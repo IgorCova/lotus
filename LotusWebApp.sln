@@ -46,6 +46,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{74D14219-E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{A42221E7-3385-43A8-BF8B-C7D6CB9A97A6}"
+	ProjectSection(SolutionItems) = preProject
+		helm\lotus\charts\postgresql-14.3.3.tgz = helm\lotus\charts\postgresql-14.3.3.tgz
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{9C7D4B52-10A7-4DF4-A9C2-F4313348D10D}"
 	ProjectSection(SolutionItems) = preProject
@@ -98,6 +101,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kafka", "kafka", "{60E820A6
 		helm\kafka\zookeeper-deployment.yaml = helm\kafka\zookeeper-deployment.yaml
 		helm\kafka\kafka-deployment.yaml = helm\kafka\kafka-deployment.yaml
 		helm\kafka\kafka-ui.yaml = helm\kafka\kafka-ui.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Проектная работа", "Проектная работа", "{8FC5951B-EC00-4688-AFCD-4921CD79B3A3}"
+	ProjectSection(SolutionItems) = preProject
+		Проектная работа\Проектная работа.md = Проектная работа\Проектная работа.md
 	EndProjectSection
 EndProject
 Global

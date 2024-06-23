@@ -2,11 +2,8 @@
 
 docker build --platform linux/amd64 -t emptyparam/lotus:latest .
 
-docker build --platform linux/amd64 -t emptyparam/lotus-worker:latest . Dockerfile.Worker
 ## PUSH
-
 docker push emptyparam/lotus:latest
-docker push emptyparam/lotus-worker:latest
 
 ## CI / CD
 
