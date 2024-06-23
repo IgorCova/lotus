@@ -109,7 +109,7 @@
           },
           "editorMode": "builder",
           "format": "table",
-          "rawSql": "SELECT \"Id\", \"UserId\", \"SubsriptionId\", \"Created\" FROM \"Orders\" ORDER BY \"Created\" DESC LIMIT 50 ",
+          "rawSql": "SELECT \"Id\", \"UserId\", \"SubsriptionId\", \"Created\" FROM \"Orders\" ORDER BY \"Created\" DESC LIMIT 10 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -158,7 +158,7 @@
                 "type": "groupBy"
               }
             ],
-            "limit": 50,
+            "limit": 10,
             "orderBy": {
               "property": {
                 "name": [
@@ -431,7 +431,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n  b.\"UserId\",\n  u.\"UserName\",\n  u.\"Email\",\n  b.\"Balance\"\nFROM \"Billings\" as b\nJOIN \"AspNetUsers\" as u on u.\"Id\" = b.\"UserId\"\norder by b.\"Id\" desc\nLIMIT 50 ",
+          "rawSql": "SELECT \n  b.\"UserId\",\n  u.\"UserName\",\n  u.\"Email\",\n  b.\"Balance\"\nFROM \"Billings\" as b\nJOIN \"AspNetUsers\" as u on u.\"Id\" = b.\"UserId\"\norder by b.\"Id\" desc\nLIMIT 5",
           "refId": "A",
           "sql": {
             "columns": [
@@ -556,10 +556,10 @@
             "type": "grafana-postgresql-datasource",
             "uid": "bdpku6y02qewwa"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \"Date\", \"UserId\", \"Message\" FROM \"Notifications\" ORDER BY \"Date\" DESC LIMIT 50 ",
+          "rawSql": "SELECT \"Date\", \"UserId\", \"Message\"\nFROM \"Notifications\"\nWHERE $__timeFilter(\"Date\") \nORDER BY \"Date\" DESC LIMIT 50 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -609,7 +609,32 @@
               },
               "type": "property"
             },
-            "orderByDirection": "DESC"
+            "orderByDirection": "DESC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "b98ab998-4567-489a-bcde-f190459866eb",
+                  "properties": {
+                    "field": "\"Date\"",
+                    "fieldSrc": "field",
+                    "operator": "greater_or_equal",
+                    "value": [
+                      "2024-06-23 17:55:49"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "datetime"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "ba8ab9aa-0123-4456-b89a-b190459810ba",
+              "type": "group"
+            },
+            "whereString": "\"Date\" >= '2024-06-23 17:55:49.000'"
           },
           "table": "\"Notifications\""
         }
@@ -639,7 +664,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -786,7 +812,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -882,7 +909,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -977,7 +1005,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1116,7 +1145,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1181,6 +1211,6 @@
   "timezone": "browser",
   "title": "Otus Dashboard",
   "uid": "fdjbv68y05edcb",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
