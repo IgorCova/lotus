@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: emptyparam/lotus
   pullPolicy: Always
-  tag: latest
+  tag: arm64-latest
 
 imagePullSecrets: []
 nameOverride: ""
