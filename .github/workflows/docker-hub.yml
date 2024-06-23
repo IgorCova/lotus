@@ -18,8 +18,10 @@ jobs:
         include:
           - builder: ubuntu-latest
             platform: linux/amd64
+            tag: amd64
           - builder: buildjet-8vcpu-ubuntu-2204-arm
             platform: linux/arm64
+            tag: arm64
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -45,6 +47,6 @@ jobs:
           context: "{{defaultContext}}"
           platforms: ${{ matrix.platform }}
           push: true
-          tags: emptyparam/lotus:${{ matrix.platform }}-latest
+          tags: emptyparam/lotus:${{ matrix.tag }}-latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
