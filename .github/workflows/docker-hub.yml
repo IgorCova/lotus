@@ -11,20 +11,18 @@ env:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.builder }}
 
     strategy:
       matrix:
-        platforms:
-          - platform: linux/amd64
+        include:
+          - builder: ubuntu-latest
+            platform: linux/amd64
             tag: amd64
-          - platform: linux/arm64
+          - builder: buildjet-8vcpu-ubuntu-2204-arm
+            platform: linux/arm64
             tag: arm64
     steps:
-      - name: Prepare
-        run: |
-          platform=${{ matrix.platforms.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
       - name: Check out the repo
         uses: actions/checkout@v3
 
@@ -44,11 +42,11 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v2
         with:
           context: "{{defaultContext}}"
-          platforms: ${{ matrix.platforms.platform }}
+          platforms: ${{ matrix.platform }}
           push: true
-          tags: emptyparam/lotus:${{ matrix.platforms.tag }}-latest
+          tags: emptyparam/lotus:${{ matrix.tag }}-latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GH_TOKEN }}
